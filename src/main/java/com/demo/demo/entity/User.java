@@ -51,6 +51,7 @@ public class User extends IdEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
+        System.out.println(getGrantedAuthorities(getRoleAndPermissionNames()).toString());
         return getGrantedAuthorities(getRoleAndPermissionNames());
     }
 

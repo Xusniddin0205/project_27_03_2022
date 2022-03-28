@@ -25,7 +25,9 @@ public class Role  {
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "role_permission",joinColumns = {@JoinColumn(name = "role_id")}
+    ,inverseJoinColumns ={@JoinColumn(name = "permission_id")} )
     private Set<Permission> permissions;
 
     public  Role(String description, RoleName roleName,Permission permission ) {

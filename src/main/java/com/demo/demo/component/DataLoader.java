@@ -70,11 +70,13 @@ public class DataLoader implements CommandLineRunner {
 
 
 
-           Set<Permission> permissions2 = new HashSet<>();
+           Set<Permission> permissionsM = new HashSet<>();
+           permissionsM.add(permissionS1);
+           permissionsM.add(permissionS4);
 
 
            Role roleModerator = roleRepository
-                   .save(new Role("Moderator", RoleName.ROLE_MODERATOR, permissions2));
+                   .save(new Role("Moderator", RoleName.ROLE_MODERATOR, permissionsM));
 
            User userModer=new User();
            userModer.setLastName("Xushbaqtov");
