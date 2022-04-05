@@ -33,7 +33,7 @@ public class AuthController {
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginReq loginReq) {
+    public ResponseEntity<?> login(@RequestBody @Valid  LoginReq loginReq) {
         System.out.println("Salom");
         System.out.println(loginReq.toString());
         Authentication authentication = authenticationManager.authenticate(
@@ -67,7 +67,8 @@ public class AuthController {
                         "Refresh token is not in database!"));
     }
 
-    @GetMapping("/me")
+   // @GetMapping("/me")
+    @PostMapping("/me")
     public ResponseEntity<?> user(){
 
         return ResponseEntity.ok(userRepository.findAll());
