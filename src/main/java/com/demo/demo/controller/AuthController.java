@@ -33,7 +33,8 @@ public class AuthController {
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid LoginReq loginReq) {
+    public ResponseEntity<?> login(@RequestBody LoginReq loginReq) {
+        System.out.println("Salom");
         System.out.println(loginReq.toString());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginReq.getUsername(), loginReq.getPassword()));
