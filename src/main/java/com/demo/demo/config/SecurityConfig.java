@@ -22,10 +22,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableGlobalMethodSecurity(
-        prePostEnabled = true,
-        jsr250Enabled = true,
-        securedEnabled = true
-)
+        prePostEnabled = true
+        )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

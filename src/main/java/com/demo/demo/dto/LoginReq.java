@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class LoginReq {
 
     @NotBlank(message = "Malumot kiritilishi kerak")
-    private String userName;
+    private String username;
 
     @NotBlank(message = "Malumot kiritilishi kerak")
     private String password;
