@@ -22,4 +22,9 @@ public class AuthService implements UserDetailsService {
         return userRepository.findByUserName(username).
                 orElseThrow(()->new UsernameNotFoundException(username+" topilmadi"));
     }
+
+    public UserDetails loadUserById(Integer id){
+        return userRepository.findById(id).
+                orElseThrow(()->new UsernameNotFoundException(id+" topilmadi"));
+            }
 }

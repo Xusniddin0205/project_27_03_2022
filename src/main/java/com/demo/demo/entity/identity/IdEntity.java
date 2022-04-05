@@ -1,6 +1,7 @@
 package com.demo.demo.entity.identity;
 
 import com.demo.demo.entity.User;
+import com.demo.demo.entity.enums.EntityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,9 @@ public abstract class IdEntity {
     private boolean active=true;
 
     private boolean deleted=false;
+
+    @Enumerated(EnumType.STRING)
+    private EntityStatus state=EntityStatus.ACTIVE;
 
     @CreationTimestamp
     @Column(updatable = false)
