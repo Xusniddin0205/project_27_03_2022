@@ -41,6 +41,8 @@ public class User extends IdEntity implements UserDetails {
     private Set<Role> roles;
 
 
+
+
     /*Security*/
     private Boolean accountNonExpired = true;
     private Boolean accountNonLocked = true;

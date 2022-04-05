@@ -1,6 +1,6 @@
 package com.demo.demo.service;
 
-import com.demo.demo.dto.api.ApiResponseModel;
+import com.demo.demo.dto.response.ApiResponseModel;
 import com.demo.demo.entity.User;
 import com.demo.demo.entity.enums.EntityStatus;
 import com.demo.demo.repository.RoleRepository;

@@ -2,6 +2,7 @@ package com.demo.demo.security;
 
 import com.demo.demo.entity.RefreshToken;
 import com.demo.demo.entity.User;
+import com.demo.demo.exception.RefreshTokenException;
 import com.demo.demo.repository.RefreshTokenRepository;
 import com.demo.demo.repository.UserRepository;
 import io.jsonwebtoken.*;
@@ -16,6 +17,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -80,6 +82,12 @@ public class JwtTokenProvider {
     }
 
     /*Refresh token config*/
+
+    public Optional<RefreshToken> findByToken(String token) {
+        return refreshTokenRepository.findByToken(token);
+    }
+
+
     public RefreshToken createRefreshToken(Integer userId) {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setUser(userRepository.findById(userId).get());
@@ -91,15 +99,28 @@ public class JwtTokenProvider {
     public RefreshToken verifyExpiration(RefreshToken token) {
         if (token.getExpiryDate().compareTo(Instant.now()) < 0) {
             refreshTokenRepository.delete(token);
-            throw new TokenRefreshException(token.getToken(), "Refresh token was expired. Please make a new signin request");
+            throw new RefreshTokenException(token.getToken(), "Refresh token was expired. Please make a new signin request");
         }
         return token;
     }
     @Transactional
-    public int deleteByUserId(Long userId) {
+    public int deleteByUserId(Integer userId) {
         return refreshTokenRepository.deleteByUser(userRepository.findById(userId).get());
+        //return refreshTokenRepository.deleteByUser(userRepository.findById(userId).get());
     }
 
 
+    public String generateTokenFromUsername(User user) {
 
+        Date expTime=new Date(new Date().getTime() + expirationTime);
+        return Jwts.builder()
+                .setSubject(user.getId().toString())
+                .setIssuedAt(new Date())
+                .setIssuer(user.getUsername())
+                .setExpiration(expTime)
+                .signWith(SignatureAlgorithm.HS512,jwtSecret)
+                .compact();
+
+
+    }
 }
