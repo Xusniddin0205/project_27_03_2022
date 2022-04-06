@@ -1,6 +1,7 @@
 package com.demo.demo.controller;
 
 import com.demo.demo.entity.User;
+import com.demo.demo.repository.UserRepository;
 import com.demo.demo.security.CurrentUser;
 import com.demo.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,10 @@ public class UserController {
     private UserService userService;
 
 
+    @Autowired
+    private UserRepository userRepository;
+
+
     @GetMapping("/me")
     public ResponseEntity<?> user(@CurrentUser User user){
         return ResponseEntity.ok(user);
@@ -30,4 +35,14 @@ public class UserController {
         List<User> users=userService.getAll();
         return ResponseEntity.status(HttpStatus.OK).body(users);
     }
+
+
+    @GetMapping("/all1")
+    public ResponseEntity<?> users1(){
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(userRepository.findAll());
+    }
+
+
 }

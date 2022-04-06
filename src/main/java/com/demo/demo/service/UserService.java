@@ -29,16 +29,16 @@ public class UserService {
     @Transactional
     @Cacheable(cacheNames = "users")
     public List<User> getAll() {
-        waitSomeTime();
+     //   waitSomeTime();
         return userRepository.findAllByState(EntityStatus.ACTIVE);
     }
 
-    public Optional<User> userOpt(Integer id) {
+       public Optional<User> userOpt(Integer id) {
         return userRepository.findById(id);
     }
 
 
-    @Cacheable(cacheNames = "user", key = "#id", unless = "#result == null")
+
     public ApiResponseModel checkUser(String userName) {
         waitSomeTime();
         ApiResponseModel result = new ApiResponseModel();

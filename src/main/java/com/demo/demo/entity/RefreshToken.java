@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.Instant;
 
 @EqualsAndHashCode(callSuper = true)
@@ -14,7 +15,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name="refreshtoken")
-public class RefreshToken extends IdEntity {
+public class RefreshToken extends IdEntity implements Serializable {
     @OneToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

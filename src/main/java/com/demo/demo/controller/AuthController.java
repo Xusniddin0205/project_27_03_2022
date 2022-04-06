@@ -8,6 +8,7 @@ import com.demo.demo.entity.User;
 import com.demo.demo.exception.RefreshTokenException;
 import com.demo.demo.repository.UserRepository;
 import com.demo.demo.security.JwtTokenProvider;
+import com.demo.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -30,7 +32,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody   LoginReq loginReq) {
@@ -68,6 +70,13 @@ public class AuthController {
                         "Refresh token is not in database!"));
     }
 
+
+    @GetMapping("/all")
+    public ResponseEntity<?> users(){
+
+        List<User> users=userService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(users);
+    }
 
 
 

@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 @EqualsAndHashCode(callSuper = true)
@@ -19,7 +20,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "users")
-public class User extends IdEntity implements UserDetails {
+public class User extends IdEntity implements UserDetails, Serializable {
 
     @Column(nullable = false)
     private String name;
