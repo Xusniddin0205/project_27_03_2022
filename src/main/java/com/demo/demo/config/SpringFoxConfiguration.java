@@ -1,3 +1,4 @@
+/*
 package com.demo.demo.config;
 
 import org.springframework.context.annotation.Bean;
@@ -41,4 +42,4 @@ public class SpringFoxConfiguration extends WebMvcConfigurationSupport {
 		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 	}
-}
+}*/

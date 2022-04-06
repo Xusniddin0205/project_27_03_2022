@@ -44,23 +44,23 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 
 
-  @Bean(name = "messageSource")
+  /*@Bean(name = "messageSource")
         public MessageSource getMessageResource()  {
             ReloadableResourceBundleMessageSource messageResource= new ReloadableResourceBundleMessageSource();
             messageResource.setBasename("classpath:i18n/messages");
             messageResource.setDefaultEncoding("UTF-8");
             return messageResource;
-        }
-
+        }*/
+/*
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageResource = new ResourceBundleMessageSource();
         messageResource.setBasename("classpath:i18n/messages");
         messageResource.setDefaultEncoding("UTF-8");
         return messageResource;
-    }
+    }*/
 
-   /* @Bean(name = "localeResolver")
+    @Bean(name = "localeResolver")
     public LocaleResolver getLocaleResolver() {
        // CookieLocaleResolver resolver = new CookieLocaleResolver();
         SessionLocaleResolver resolver = new SessionLocaleResolver();
@@ -75,5 +75,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 
         registry.addInterceptor(localeInterceptor);
-    }*/
+    }
 }
