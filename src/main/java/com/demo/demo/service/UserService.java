@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@CacheConfig(cacheNames = "userCache")
 public class UserService {
     @Autowired
     private UserRepository userRepository;
@@ -40,7 +39,7 @@ public class UserService {
 
 
     public ApiResponseModel checkUser(String userName) {
-        waitSomeTime();
+
         ApiResponseModel result = new ApiResponseModel();
         Optional<User> user = userRepository.findByUserName(userName);
         if (user.isPresent()) {
@@ -54,7 +53,7 @@ public class UserService {
         return result;
     }
 
-    private void waitSomeTime() {
+    /*private void waitSomeTime() {
         System.out.println("Long Wait Begin");
         try {
             Thread.sleep(3000);
@@ -62,7 +61,7 @@ public class UserService {
             e.printStackTrace();
         }
         System.out.println("Long Wait End");
-    }
+    }*/
 /*
     public Result Edit(UserRequest userRequest, Long uuid) {
         Result result = new Result();

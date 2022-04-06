@@ -38,6 +38,17 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        /*for (int i=0;i<=100000;i++){
+            User userAdmin=new User();
+            userAdmin.setLastName("Xushbaqtov-"+i);
+            userAdmin.setName("Shamsiddin"+i);
+            userAdmin.setUserName("shamsiddin"+i);
+            userAdmin.setSurName("Rahim o'g'li");
+            userAdmin.setRoles(new HashSet<>(Arrays.asList(roleRepository.getById(1))));
+            userAdmin.setPassword(passwordEncoder.encode("12345"));
+            userRepository.save(userAdmin);
+        }*/
+
        if (initMode.equals("always")) {
 
            Permission permissionS1 = permissionRepository
