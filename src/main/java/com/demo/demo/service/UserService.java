@@ -37,7 +37,7 @@ public class UserService {
 
 
     public ApiResponseModel checkUser(String userName) {
-      
+
         ApiResponseModel result = new ApiResponseModel();
         Optional<User> user = userRepository.findByUserName(userName);
         if (user.isPresent()) {
