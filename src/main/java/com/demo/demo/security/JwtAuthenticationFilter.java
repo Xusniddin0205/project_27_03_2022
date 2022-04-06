@@ -28,10 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        System.out.println("Salom");
-        System.out.println(request.getContextPath());
-
+        System.out.println("path="+request.getRequestURI());
         try {
          String   jwt=getJwtFromRequest(request);
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)){
@@ -55,7 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     public String getJwtFromRequest(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        System.out.println(token);
+
         if (StringUtils.hasText(token) && token.substring(0, tokenType.length()).equals(tokenType)) {
             return token.substring(tokenType.length() + 1);
         }

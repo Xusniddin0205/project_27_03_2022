@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -33,9 +33,8 @@ public class AuthController {
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid  LoginReq loginReq) {
-        System.out.println("Salom");
-        System.out.println(loginReq.toString());
+    public ResponseEntity<?> login(@Valid @RequestBody   LoginReq loginReq) {
+        //System.out.println(loginReq.toString());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginReq.getUsername(), loginReq.getPassword()));
         String token = jwtTokenProvider.generateToken(authentication);
@@ -49,30 +48,27 @@ public class AuthController {
         RefreshToken refreshToken=jwtTokenProvider.createRefreshToken(user.getId());
         JwtResponse jwtResponse=new JwtResponse();
         jwtResponse.setTokenRefresh(refreshToken.getToken());
+        jwtResponse.setUsername(user.getUsername());
         jwtResponse.setTokenBody(jwtTokenProvider.generateToken(authentication));
         return ResponseEntity.status(HttpStatus.OK).body(jwtResponse);
     }
 
     @PostMapping("/refreshtoken")
     public ResponseEntity<?> refreshtoken(@Valid @RequestBody RefreshTokenRequest request) {
+        System.out.println(request);
         String requestRefreshToken = request.getRefreshToken();
         return jwtTokenProvider.findByToken(requestRefreshToken)
                 .map(jwtTokenProvider::verifyExpiration)
                 .map(RefreshToken::getUser)
                 .map(user -> {
                     String token = jwtTokenProvider.generateTokenFromUsername(user);
-                    return ResponseEntity.ok(new JwtResponse(token, requestRefreshToken));
+                    return ResponseEntity.ok(new JwtResponse(token, requestRefreshToken,user.getUsername()));
                 })
                 .orElseThrow(() -> new RefreshTokenException(requestRefreshToken,
                         "Refresh token is not in database!"));
     }
 
-   // @GetMapping("/me")
-    @PostMapping("/me")
-    public ResponseEntity<?> user(){
 
-        return ResponseEntity.ok(userRepository.findAll());
-    }
 
 
 }

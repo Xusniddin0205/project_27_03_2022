@@ -9,12 +9,17 @@ import org.springframework.beans.factory.annotation.Value;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JwtResponse {
-    @Value("${app.jwt.token.type}")
-    private String tokenType;
+
+    private String tokenType="RestApi";
     private String tokenBody;
     private String tokenRefresh;
     private String username;
 
+    public JwtResponse(String tokenBody, String tokenRefresh, String username) {
+        this.tokenBody = tokenBody;
+        this.tokenRefresh = tokenRefresh;
+        this.username = username;
+    }
 
     public JwtResponse(String tokenBody, String tokenRefresh) {
         this.tokenBody = tokenBody;

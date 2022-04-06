@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class RefreshTokenRequest {
 
-    @NotBlank(message = "Refresh token kiritilmagan")
+    @NotEmpty(message = "Refresh token kiritilmagan")
     private String refreshToken;
 }

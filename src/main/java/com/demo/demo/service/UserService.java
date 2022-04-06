@@ -6,13 +6,16 @@ import com.demo.demo.entity.enums.EntityStatus;
 import com.demo.demo.repository.RoleRepository;
 import com.demo.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@CacheConfig(cacheNames = "userCache")
 public class UserService {
     @Autowired
     private UserRepository userRepository;
@@ -23,14 +26,14 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepository;
 
-
-
+    @Transactional
+    @Cacheable(cacheNames = "users")
     public List<User> getAll() {
         return userRepository.findAllByState(EntityStatus.ACTIVE);
     }
 
-    public  Optional<User> userOpt(Integer id){
-        return  userRepository.findById(id);
+    public Optional<User> userOpt(Integer id) {
+        return userRepository.findById(id);
     }
 
     public ApiResponseModel checkUser(String userName) {
@@ -134,5 +137,16 @@ public Page<User> getUserPage(int page, int size){
 }
 
  */
+
+    private void waitSomeTime() {
+        System.out.println("Long Wait Begin");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Long Wait End");
+    }
+
 
 }
