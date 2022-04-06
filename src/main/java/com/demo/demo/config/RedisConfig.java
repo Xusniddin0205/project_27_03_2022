@@ -6,12 +6,18 @@ import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 
+import groovy.util.logging.Slf4j;
+import org.apache.commons.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CachingConfigurer;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -31,7 +37,10 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 @Configuration
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 @EnableCaching
-public class RedisConfig {
+public class RedisConfig  extends CachingConfigurerSupport implements CachingConfigurer {
+
+
+
 
 
     @Value("${spring.redis.host}")
@@ -69,6 +78,8 @@ public class RedisConfig {
         jedis.flushAll();
         jedis.close();
     }
+
+
 
 }
 

@@ -1,21 +1,22 @@
 package com.demo.demo.entity;
 
 import com.demo.demo.entity.enums.RoleName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.sun.xml.internal.ws.developer.Serialization;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Role  {
+public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -25,7 +26,7 @@ public class Role  {
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "role_permission",joinColumns = {@JoinColumn(name = "role_id")}
     ,inverseJoinColumns ={@JoinColumn(name = "permission_id")} )
     private Set<Permission> permissions;

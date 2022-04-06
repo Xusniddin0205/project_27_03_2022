@@ -60,13 +60,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return messageResource;
     }*/
 
-    @Bean(name = "localeResolver")
+    /*@Bean(name = "localeResolver")
     public LocaleResolver getLocaleResolver() {
        // CookieLocaleResolver resolver = new CookieLocaleResolver();
         SessionLocaleResolver resolver = new SessionLocaleResolver();
         resolver.setDefaultLocale(Locale.ENGLISH);
         return resolver;
-    }
+    }*/
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

@@ -29,6 +29,7 @@ public class UserService {
     @Transactional
     @Cacheable(cacheNames = "users")
     public List<User> getAll() {
+        waitSomeTime();
         return userRepository.findAllByState(EntityStatus.ACTIVE);
     }
 
@@ -36,7 +37,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+
+    @Cacheable(cacheNames = "user", key = "#id", unless = "#result == null")
     public ApiResponseModel checkUser(String userName) {
+        waitSomeTime();
         ApiResponseModel result = new ApiResponseModel();
         Optional<User> user = userRepository.findByUserName(userName);
         if (user.isPresent()) {
@@ -50,7 +54,15 @@ public class UserService {
         return result;
     }
 
-
+    private void waitSomeTime() {
+        System.out.println("Long Wait Begin");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Long Wait End");
+    }
 /*
     public Result Edit(UserRequest userRequest, Long uuid) {
         Result result = new Result();
@@ -138,15 +150,7 @@ public Page<User> getUserPage(int page, int size){
 
  */
 
-    private void waitSomeTime() {
-        System.out.println("Long Wait Begin");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Long Wait End");
-    }
+
 
 
 }
