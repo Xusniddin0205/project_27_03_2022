@@ -77,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .antMatchers("/moderator/**").access("hasRole('MODERATOR')")
                 //.antMatchers("/user/**").access("hasRole('USER')")
-                .antMatchers("/api/auth/**","/swagger-ui.html").permitAll()
+                .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/**").authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -87,11 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
+        web.ignoring().antMatchers(
                 "/webjars/**");
         web.httpFirewall(allowUrlEncodedSlashhHttpFirewall());
     }

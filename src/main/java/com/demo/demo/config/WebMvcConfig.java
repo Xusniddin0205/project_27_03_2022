@@ -11,7 +11,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 
 import javax.annotation.PostConstruct;
 import java.util.Date;
@@ -51,22 +51,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
             messageResource.setDefaultEncoding("UTF-8");
             return messageResource;
         }*/
-/*
+
     @Bean
     public MessageSource messageSource() {
         ResourceBundleMessageSource messageResource = new ResourceBundleMessageSource();
         messageResource.setBasename("classpath:i18n/messages");
         messageResource.setDefaultEncoding("UTF-8");
         return messageResource;
-    }*/
+    }
 
-    /*@Bean(name = "localeResolver")
+    @Bean(name = "localeResolver")
     public LocaleResolver getLocaleResolver() {
        // CookieLocaleResolver resolver = new CookieLocaleResolver();
         SessionLocaleResolver resolver = new SessionLocaleResolver();
         resolver.setDefaultLocale(Locale.ENGLISH);
         return resolver;
-    }*/
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
